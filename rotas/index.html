@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Rotas - Agrotools API</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Rotas";
+    var mkdocs_page_input_path = "rotas.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Agrotools API</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../dados/">Dados</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../auth/">Autenticação</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Rotas</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage">Full Data Stage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#requisicao">Requisição</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#resposta">Resposta</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../servicos/">Serviços</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Agrotools API</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Rotas</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="rotas-endpoints">Rotas (<em>endpoints</em>)</h1>
+<p>Caminhos web para obtenção e persistência dos dados.</p>
+<p>Primeiro API consulta o banco <em>full data raw</em>, caso não encontrado consulta a API Agrotools tanto para <em>analysis</em> quanto para <em>list territories</em>.</p>
+<p>Após obtenção dos dados é feita a junção das partes, persistindo no banco (caso não tenha erro) e retornado ao usuário.</p>
+<p>As mensagens de erros obtidos na Agrotools são enviados nos campos <em>error_territories</em> e <em>error_analysis</em> do JSON de resposta, podendo aparecer em um ou ambos. Nesse caso o dado é retornado ao usuário mas não persistido no banco.</p>
+<p>A API não distingue erros via Agrotools, retornando 200 nesses casos. Retornará um código diferente de 200 caso haja algum erro interno (500) ou de autenticação (403).</p>
+<p>Os itens enviados (<em>body</em>) durante a requisição correspondem aos códigos dos territórios que se deseja consultar.</p>
+<p><br/></p>
+<hr />
+<h2 id="full-data-stage">Full Data Stage</h2>
+<p>Exemplo de requisição para obter os dados refinados completos.</p>
+<h3 id="requisicao">Requisição</h3>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Method</th>
+<th scope="col">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td>/api/v1/full_data_stage</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Header</th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>authorization</td>
+<td>Bearer TOKEN</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Requets body</th>
+<th scope="col"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cdTarget</td>
+<td>[8434559999985070, 8434551183268285070]</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<pre><code>{'cdTarget': [
+                8434559999985070,
+                8434551183268285070
+              ]
+}
+</code></pre>
+<p><br/></p>
+<p>Exemplo via <em>python</em>:</p>
+<pre><code>from requests import get
+
+url_base = 'http://DOMINIO/api/v1/full_data_stage'
+
+token = {'authorization': 'Bearer TOKEN_AUCUTS'}
+
+data = {'cdTarget': [8434559999985070, 8434551183268285070]}
+
+response = get(url_base, json=data, headers=token)
+</code></pre>
+<p><br/></p>
+<h3 id="resposta">Resposta</h3>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Status</th>
+<th scope="col">Response Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<pre><code>{
+    &quot;full_data_stage&quot;: [
+        {
+            &quot;cd_territory&quot;: 0,
+            &quot;nome_agente&quot;: null,
+            &quot;documento&quot;: 0,
+            &quot;nome_fazenda&quot;: null,
+            &quot;nivel&quot;: null,
+            &quot;municipio&quot;: null,
+            &quot;uf&quot;: null,
+            &quot;exploracao_cadastrada_terramatrix&quot;: null,
+            &quot;area_fazenda_calculada&quot;: null,
+            &quot;dataConsulta&quot;: null,
+            &quot;nmCriteria&quot;: null,
+            &quot;vlResult&quot;: null,
+            &quot;soma_area_embargos_ha&quot;: null,
+            &quot;soma_area_prodes_ha&quot;: null,
+            &quot;error_territories&quot;: &quot;Território não encontrado&quot;,
+            &quot;error_analysis&quot;: &quot;HOUVE UM PROBLEMA AO PEGAR OS HOLDERS PARA ANALISE&quot;,
+            &quot;houve_mudanca&quot;: null,
+        },
+        {...},
+        {...},
+        ...,
+        {
+          &quot;cd_territory&quot;: 8434551183268285070,
+          &quot;nome_agente&quot;: &quot;AGROPECUARIA SAO SEBASTIAO LTDA&quot;,
+          &quot;documento&quot;: 33487804000116,
+          &quot;nome_fazenda&quot;: &quot;FAZENDA SANTO ANTONIO MAT 1807&quot;,
+          &quot;nivel&quot;: &quot;N5&quot;,
+          &quot;municipio&quot;: &quot;NOVA MUTUM&quot;,
+          &quot;uf&quot;: &quot;MT&quot;,
+          &quot;exploracao_cadastrada_terramatrix&quot;: &quot;AGRICOLA&quot;,
+          &quot;area_fazenda_calculada&quot;: &quot;406.2481'&quot;,
+          &quot;dataConsulta&quot;: &quot;2021-03-14 15:10:40&quot;,
+          &quot;nmCriteria&quot;: &quot;Embargos IBAMA - Lista&quot;,
+          &quot;vlResult&quot;: &quot;Apto&quot;,
+          &quot;soma_area_embargos_ha&quot;: 0.0,
+          &quot;soma_area_prodes_ha&quot;: 0.0,
+          &quot;error_territories&quot;: null,
+          &quot;error_analysis&quot;: null,
+          &quot;houve_mudanca&quot;: false
+        }
+    ]
+</code></pre>
+<p>Os campos entre <em>cd_territory</em> e <em>area_fazenda_calculada</em> são referentes aos dados <strong><em>list territories</em></strong>. Já <em>dataConsulta</em> a <em>soma_area_prodes_ha</em> e <em>houve_mudanca</em> vêm de <strong><em>analysis</em></strong>.</p>
+<p>Os campos "error_territories" e "error_analysis" são vinculados a cada parte dos dados.</p>
+<p>Existem alguns serviços de processamento de dados (<em>stage</em>) atuando nessa rota quando o código não existe no banco:</p>
+<ol>
+<li>
+<p>organização dos dados brutos de <em>list territories</em></p>
+</li>
+<li>
+<p>organização dos dados brutos de <em>analysis</em></p>
+</li>
+<li>
+<p>merge de <em>territories</em> e <em>analysis</em></p>
+</li>
+</ol>
+<p>A rota sempre retorna o território com o campo <em>dataConsulta</em> mais recente.</p>
+<p>A geração do campo <em>houve_mudanca</em> é a comparação dos critérios de legalidade (<em>nmCriteria</em>). Caso um critério não seja igual ao do último registro do mês anterior, então <em>houve_mudanca</em> é <code>True</code>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../servicos/" class="btn btn-neutral float-right" title="Serviços">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../auth/" class="btn btn-neutral" title="Autenticação"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../auth/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../servicos/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
