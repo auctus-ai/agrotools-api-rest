@@ -327,8 +327,24 @@ response = get(url_base, json=data, headers=header)
 }
 </code></pre>
 <p><br/></p>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Status</th>
+<th scope="col">Response Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>409</td>
+<td><code>{"message" : 'Um ou mais códigos já existem.'}</code></td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
 <h4 id="detalhes_1">Detalhes</h4>
 <p>Essa rota adiciona o código enviado ao banco de dados. Não permite códigos duplicados.</p>
+<p>O <strong>erro 409</strong> indica que alguém está tentando inserir um ou mais códigos já existentes no banco de dados.</p>
 <p><br/></p>
 <hr />
 <h2 id="full-data-stage">Full Data Stage</h2>
