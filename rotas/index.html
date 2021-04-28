@@ -498,7 +498,7 @@ response = get(url_base, json=data, headers=header)
 <hr />
 <h2 id="full-data-stage-docs-city">Full Data Stage - Docs City</h2>
 <p>Exemplo de requisição para obter os dados refinados a partir do documento (CPF ou CNPJ) e município (cidade) ligado ao território.</p>
-<p>Essa rota consulta o banco de dados da aplicação retornando todos registros sem forçar atualização.</p>
+<p>Essa rota consulta o banco de dados da aplicação retornando os registros com <strong><em>dataConsulta</em></strong> mais recente sem forçar atualização.</p>
 <p><br/></p>
 <hr />
 <h3 id="post_1">POST</h3>
@@ -545,7 +545,7 @@ response = get(url_base, json=data, headers=header)
 <tbody>
 <tr>
 <td>full_data_stage</td>
-<td>{"documento": 98454595953, "municipio": "FELIZ NATAL"}, {"documento": 79490336149, "municipio": "NOVA MUTUM"}</td>
+<td>[{"documento": 98454595953, "municipio": "FELIZ NATAL nao existe"}, {"documento": 79490336149, "municipio": "NOVA MUTUM"}]</td>
 </tr>
 </tbody>
 </table>
@@ -568,66 +568,45 @@ response = get(url_base, json=data, headers=header)
 <pre><code>{
     &quot;full_data_stage&quot;: [
         {
-            'cd_territory': 1216995481564766471,
-            'nome_agente': 'ADAIR JOSE TOMAZI',
-            'documento': 98454595953,
-            'nome_fazenda':
-            'LOTE 102',
-            'nivel': 'N5',
-            'municipio': 'FELIZ NATAL',
-            'uf': 'MT',
-            'exploracao_cadastrada_terramatrix': 'AGRICOLA',
-            'area_fazenda_calculada': &quot;259.6713'&quot;,
-            'dataConsulta': '2021-04-23 20:41:25',
-            'nmCriteria': 'Embargos IBAMA - Lista',
-            'vlResult': 'inapto-98454595953',
-            'soma_area_embargos_ha': 76.4165007118607,
-            'soma_area_prodes_ha': 69.45090790971925,
-            'error_territories': null,
-            'error_analysis': null,
-            'houve_mudanca': null
+          &quot;cd_territory&quot;: 0,
+          &quot;nome_agente&quot;: null,
+          &quot;documento&quot;: 98454595953,
+          &quot;nome_fazenda&quot;: null,
+          &quot;nivel&quot;: null,
+          &quot;municipio&quot;: &quot;FELIZ NATAL nao existe&quot;,
+          &quot;uf&quot;: null,
+          &quot;exploracao_cadastrada_terramatrix&quot;: null,
+          &quot;area_fazenda_calculada&quot;: null,
+          &quot;dataConsulta&quot;: null,
+          &quot;nmCriteria&quot;: null,
+          &quot;vlResult&quot;: null,
+          &quot;soma_area_embargos_ha&quot;: null,
+          &quot;soma_area_prodes_ha&quot;: null,
+          &quot;error_territories&quot;: &quot;Recurso não encontrado&quot;,
+          &quot;error_analysis&quot;: null,
+          &quot;houve_mudanca&quot;: null
+        }
+        {
+          &quot;cd_territory&quot;: 8434551183268285070,
+          &quot;nome_agente&quot;: &quot;JOAO MIGUEL&quot;,
+          &quot;documento&quot;: 79490336149,
+          &quot;nome_fazenda&quot;: &quot;FAZENDA GRANDE&quot;,
+          &quot;nivel&quot;: &quot;N5&quot;,
+          &quot;municipio&quot;: &quot;NOVA MUTUM&quot;,
+          &quot;uf&quot;: &quot;MT&quot;,
+          &quot;exploracao_cadastrada_terramatrix&quot;: &quot;AGRICOLA&quot;,
+          &quot;area_fazenda_calculada&quot;: &quot;406.2481'&quot;,
+          &quot;dataConsulta&quot;: &quot;2021-04-28 16:05:08&quot;,
+          &quot;nmCriteria&quot;: &quot;Embargos IBAMA - Lista&quot;,
+          &quot;vlResult&quot;: &quot;apto-79490336149&quot;,
+          &quot;soma_area_embargos_ha&quot;: 0.0,
+          &quot;soma_area_prodes_ha&quot;: 0.0,
+          &quot;error_territories&quot;: null,
+          &quot;error_analysis&quot;: null,
+          &quot;houve_mudanca&quot;: null
         },
         ...,
         {...}
-    ]
-}
-</code></pre>
-<p><br/></p>
-<table class="table">
-<thead>
-<tr>
-<th scope="col">Status</th>
-<th scope="col">Response Body</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>404</td>
-<td><code>{"full_data_stage" : [ {...}, ..., {...} ]}</code></td>
-</tr>
-</tbody>
-</table>
-<pre><code>{
-    &quot;full_data_stage&quot;: [
-        {
-            &quot;cd_territory&quot;: 0,
-            &quot;nome_agente&quot;: null,
-            &quot;documento&quot;: 0,
-            &quot;nome_fazenda&quot;: null,
-            &quot;nivel&quot;: null,
-            &quot;municipio&quot;: null,
-            &quot;uf&quot;: null,
-            &quot;exploracao_cadastrada_terramatrix&quot;: null,
-            &quot;area_fazenda_calculada&quot;: null,
-            &quot;dataConsulta&quot;: null,
-            &quot;nmCriteria&quot;: null,
-            &quot;vlResult&quot;: null,
-            &quot;soma_area_embargos_ha&quot;: null,
-            &quot;soma_area_prodes_ha&quot;: null,
-            &quot;error_territories&quot;: &quot;Recurso não encontrado&quot;,
-            &quot;error_analysis&quot;: null,
-            &quot;houve_mudanca&quot;: null
-        }
     ]
 }
 </code></pre>
