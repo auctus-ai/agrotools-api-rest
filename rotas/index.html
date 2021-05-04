@@ -101,7 +101,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-docs-city">Full Data Stage - Docs City</a>
+    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-docs">Full Data Stage - Docs</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#post_1">POST</a>
         <ul>
@@ -115,7 +115,7 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-names-city">Full Data Stage - Names City</a>
+    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-docs-city">Full Data Stage - Docs City</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#post_2">POST</a>
         <ul>
@@ -129,9 +129,9 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-update">Full Data Stage - Update</a>
+    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-names-city">Full Data Stage - Names City</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#get_2">GET</a>
+    <li class="toctree-l3"><a class="reference internal" href="#post_3">POST</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#requisicao_5">Requisição</a>
     </li>
@@ -143,15 +143,29 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-update-all">Full Data Stage - Update All</a>
+    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-update">Full Data Stage - Update</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#get_3">GET</a>
+    <li class="toctree-l3"><a class="reference internal" href="#get_2">GET</a>
         <ul>
     <li class="toctree-l4"><a class="reference internal" href="#requisicao_6">Requisição</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#resposta_6">Resposta</a>
     </li>
     <li class="toctree-l4"><a class="reference internal" href="#detalhes_6">Detalhes</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#full-data-stage-update-all">Full Data Stage - Update All</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#get_3">GET</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#requisicao_7">Requisição</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#resposta_7">Resposta</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#detalhes_7">Detalhes</a>
     </li>
         </ul>
     </li>
@@ -510,13 +524,132 @@ response = get(url_base, json=data, headers=header)
 <p>A geração do campo <em>houve_mudanca</em> é a comparação dos critérios de legalidade (<em>nmCriteria</em>). Caso um critério não seja igual ao do último registro do mês anterior, então <em>houve_mudanca</em> é <code>True</code>.</p>
 <p><br/></p>
 <hr />
-<h2 id="full-data-stage-docs-city">Full Data Stage - Docs City</h2>
-<p>Exemplo de requisição para obter os dados refinados a partir do documento (CPF ou CNPJ) e município (cidade) ligado ao território.</p>
+<h2 id="full-data-stage-docs">Full Data Stage - Docs</h2>
+<p>Exemplo de requisição para obter os dados refinados a partir do documento (CPF ou CNPJ).</p>
 <p>Essa rota consulta o banco de dados da aplicação retornando os registros com <strong><em>dataConsulta</em></strong> mais recente sem forçar atualização.</p>
 <p><br/></p>
 <hr />
 <h3 id="post_1">POST</h3>
 <h4 id="requisicao_3">Requisição</h4>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Method</th>
+<th scope="col">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td>/api/v1/full_data_stage/document</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Header</th>
+<th scope="col">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+</tr>
+<tr>
+<td>authorization</td>
+<td>Bearer TOKEN</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Request body</th>
+<th scope="col">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>full_data_stage</td>
+<td>[{"documento": 98499999953, "dataConsulta": "2021-05-03"}, {"documento": 79490336149, "dataConsulta": "2021-05-03"}]</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<h4 id="resposta_3">Resposta</h4>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Status</th>
+<th scope="col">Response Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><code>{"full_data_stage" : [ {...}, ..., {...} ]}</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code>{
+    &quot;full_data_stage&quot;: [
+        {
+          &quot;cd_territory&quot;: 0,
+          &quot;nome_agente&quot;: null,
+          &quot;documento&quot;: 98499999953,
+          &quot;nome_fazenda&quot;: null,
+          &quot;nivel&quot;: null,
+          &quot;municipio&quot;: null,
+          &quot;uf&quot;: null,
+          &quot;exploracao_cadastrada_terramatrix&quot;: null,
+          &quot;area_fazenda_calculada&quot;: null,
+          &quot;dataConsulta&quot;: null,
+          &quot;nmCriteria&quot;: null,
+          &quot;vlResult&quot;: null,
+          &quot;soma_area_embargos_ha&quot;: null,
+          &quot;soma_area_prodes_ha&quot;: null,
+          &quot;error_territories&quot;: &quot;Recurso não encontrado&quot;,
+          &quot;error_analysis&quot;: null,
+          &quot;houve_mudanca&quot;: null
+        }
+        {
+          &quot;cd_territory&quot;: 8434551183268285070,
+          &quot;nome_agente&quot;: &quot;JOAO MIGUEL&quot;,
+          &quot;documento&quot;: 79490336149,
+          &quot;nome_fazenda&quot;: &quot;FAZENDA GRANDE&quot;,
+          &quot;nivel&quot;: &quot;N5&quot;,
+          &quot;municipio&quot;: &quot;NOVA MUTUM&quot;,
+          &quot;uf&quot;: &quot;MT&quot;,
+          &quot;exploracao_cadastrada_terramatrix&quot;: &quot;AGRICOLA&quot;,
+          &quot;area_fazenda_calculada&quot;: &quot;406.2481'&quot;,
+          &quot;dataConsulta&quot;: &quot;2021-04-28 16:05:08&quot;,
+          &quot;nmCriteria&quot;: &quot;Embargos IBAMA - Lista&quot;,
+          &quot;vlResult&quot;: &quot;apto-79490336149&quot;,
+          &quot;soma_area_embargos_ha&quot;: 0.0,
+          &quot;soma_area_prodes_ha&quot;: 0.0,
+          &quot;error_territories&quot;: null,
+          &quot;error_analysis&quot;: null,
+          &quot;houve_mudanca&quot;: null
+        },
+        ...,
+        {...}
+    ]
+}
+</code></pre>
+<p><br/></p>
+<h4 id="detalhes_3">Detalhes</h4>
+<p>Análoga a rota <code>/api/v1/full_data_stage</code>, porém a consulta é feita pelo documento ao invés fazer a consulta via código do território (<em>cd_territory</em>).</p>
+<p><br/></p>
+<hr />
+<h2 id="full-data-stage-docs-city">Full Data Stage - Docs City</h2>
+<p>Exemplo de requisição para obter os dados refinados a partir do documento (CPF ou CNPJ) e município (cidade) ligado ao território.</p>
+<p>Essa rota consulta o banco de dados da aplicação retornando os registros com <strong><em>dataConsulta</em></strong> mais recente sem forçar atualização.</p>
+<p><br/></p>
+<hr />
+<h3 id="post_2">POST</h3>
+<h4 id="requisicao_4">Requisição</h4>
 <table class="table">
 <thead>
 <tr>
@@ -564,7 +697,7 @@ response = get(url_base, json=data, headers=header)
 </tbody>
 </table>
 <p><br/></p>
-<h4 id="resposta_3">Resposta</h4>
+<h4 id="resposta_4">Resposta</h4>
 <table class="table">
 <thead>
 <tr>
@@ -625,7 +758,7 @@ response = get(url_base, json=data, headers=header)
 }
 </code></pre>
 <p><br/></p>
-<h4 id="detalhes_3">Detalhes</h4>
+<h4 id="detalhes_4">Detalhes</h4>
 <p>Análoga a rota <code>/api/v1/full_data_stage</code>, porém a consulta é feita pelo documento e município ao invés fazer a consulta via código do território (<em>cd_territory</em>).</p>
 <p><br/></p>
 <hr />
@@ -635,8 +768,8 @@ response = get(url_base, json=data, headers=header)
 <p>Essa rota consulta o banco de dados da aplicação retornando os registros com <strong><em>dataConsulta</em></strong> mais recente sem forçar atualização.</p>
 <p><br/></p>
 <hr />
-<h3 id="post_2">POST</h3>
-<h4 id="requisicao_4">Requisição</h4>
+<h3 id="post_3">POST</h3>
+<h4 id="requisicao_5">Requisição</h4>
 <table class="table">
 <thead>
 <tr>
@@ -647,7 +780,7 @@ response = get(url_base, json=data, headers=header)
 <tbody>
 <tr>
 <td><code>POST</code></td>
-<td>/api/v1/full_data_stage/document_city</td>
+<td>/api/v1/full_data_stage/name_city</td>
 </tr>
 </tbody>
 </table>
@@ -684,7 +817,7 @@ response = get(url_base, json=data, headers=header)
 </tbody>
 </table>
 <p><br/></p>
-<h4 id="resposta_4">Resposta</h4>
+<h4 id="resposta_5">Resposta</h4>
 <table class="table">
 <thead>
 <tr>
@@ -745,7 +878,7 @@ response = get(url_base, json=data, headers=header)
 }
 </code></pre>
 <p><br/></p>
-<h4 id="detalhes_4">Detalhes</h4>
+<h4 id="detalhes_5">Detalhes</h4>
 <p>Análoga a rota <code>/api/v1/full_data_stage</code>, porém a consulta é feita pelo nome do agente e município ao invés fazer a consulta via código do território (<em>cd_territory</em>).</p>
 <p><br/></p>
 <hr />
@@ -755,7 +888,7 @@ response = get(url_base, json=data, headers=header)
 <p><br/></p>
 <hr />
 <h3 id="get_2">GET</h3>
-<h4 id="requisicao_5">Requisição</h4>
+<h4 id="requisicao_6">Requisição</h4>
 <table class="table">
 <thead>
 <tr>
@@ -803,90 +936,6 @@ response = get(url_base, json=data, headers=header)
 </tbody>
 </table>
 <p><br/></p>
-<h4 id="resposta_5">Resposta</h4>
-<table class="table">
-<thead>
-<tr>
-<th scope="col">Status</th>
-<th scope="col">Response Body</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>200</td>
-<td><code>{"full_data_stage" : [ {...}, ..., {...} ]}</code></td>
-</tr>
-</tbody>
-</table>
-<pre><code>{
-    &quot;full_data_stage&quot;: [
-        {
-          &quot;cd_territory&quot;: 8434551183268285070,
-          &quot;nome_agente&quot;: &quot;AGROPECUARIA LTDA&quot;,
-          &quot;documento&quot;: 12347804006789,
-          &quot;nome_fazenda&quot;: &quot;FAZENDA BONITA&quot;,
-          &quot;nivel&quot;: &quot;N5&quot;,
-          &quot;municipio&quot;: &quot;CAMPINAS&quot;,
-          &quot;uf&quot;: &quot;SP&quot;,
-          &quot;exploracao_cadastrada_terramatrix&quot;: &quot;AGRICOLA&quot;,
-          &quot;area_fazenda_calculada&quot;: &quot;406.2481'&quot;,
-          &quot;dataConsulta&quot;: &quot;2021-04-16 17:00:00&quot;,
-          &quot;nmCriteria&quot;: &quot;Embargos IBAMA - Lista&quot;,
-          &quot;vlResult&quot;: &quot;Apto&quot;,
-          &quot;soma_area_embargos_ha&quot;: 0.0,
-          &quot;soma_area_prodes_ha&quot;: 0.0,
-          &quot;error_territories&quot;: null,
-          &quot;error_analysis&quot;: null,
-          &quot;houve_mudanca&quot;: false
-        }
-    ]
-}
-</code></pre>
-<p><br/></p>
-<h4 id="detalhes_5">Detalhes</h4>
-<p>Análoga a rota <code>/api/v1/full_data_stage</code>, a diferença consiste em atualizar os dados consultando-os diratamente na Agrootols.</p>
-<p><br/></p>
-<hr />
-<h2 id="full-data-stage-update-all">Full Data Stage - Update All</h2>
-<p>Requisição para atualizar todos os códigos presentes na base <strong><em>cd territory</em></strong>.</p>
-<p>Força atualização no banco de dados Agrotools e persiste na aplicação.</p>
-<p><br/></p>
-<hr />
-<h3 id="get_3">GET</h3>
-<h4 id="requisicao_6">Requisição</h4>
-<table class="table">
-<thead>
-<tr>
-<th scope="col">Method</th>
-<th scope="col">URL</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>GET</code></td>
-<td>/api/v1/full_data_stage/update/all</td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<thead>
-<tr>
-<th scope="col">Header</th>
-<th scope="col">Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Content-Type</td>
-<td>application/json</td>
-</tr>
-<tr>
-<td>authorization</td>
-<td>Bearer TOKEN</td>
-</tr>
-</tbody>
-</table>
-<p><br/></p>
 <h4 id="resposta_6">Resposta</h4>
 <table class="table">
 <thead>
@@ -928,6 +977,90 @@ response = get(url_base, json=data, headers=header)
 </code></pre>
 <p><br/></p>
 <h4 id="detalhes_6">Detalhes</h4>
+<p>Análoga a rota <code>/api/v1/full_data_stage</code>, a diferença consiste em atualizar os dados consultando-os diratamente na Agrootols.</p>
+<p><br/></p>
+<hr />
+<h2 id="full-data-stage-update-all">Full Data Stage - Update All</h2>
+<p>Requisição para atualizar todos os códigos presentes na base <strong><em>cd territory</em></strong>.</p>
+<p>Força atualização no banco de dados Agrotools e persiste na aplicação.</p>
+<p><br/></p>
+<hr />
+<h3 id="get_3">GET</h3>
+<h4 id="requisicao_7">Requisição</h4>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Method</th>
+<th scope="col">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td>/api/v1/full_data_stage/update/all</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Header</th>
+<th scope="col">Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content-Type</td>
+<td>application/json</td>
+</tr>
+<tr>
+<td>authorization</td>
+<td>Bearer TOKEN</td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<h4 id="resposta_7">Resposta</h4>
+<table class="table">
+<thead>
+<tr>
+<th scope="col">Status</th>
+<th scope="col">Response Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><code>{"full_data_stage" : [ {...}, ..., {...} ]}</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code>{
+    &quot;full_data_stage&quot;: [
+        {
+          &quot;cd_territory&quot;: 8434551183268285070,
+          &quot;nome_agente&quot;: &quot;AGROPECUARIA LTDA&quot;,
+          &quot;documento&quot;: 12347804006789,
+          &quot;nome_fazenda&quot;: &quot;FAZENDA BONITA&quot;,
+          &quot;nivel&quot;: &quot;N5&quot;,
+          &quot;municipio&quot;: &quot;CAMPINAS&quot;,
+          &quot;uf&quot;: &quot;SP&quot;,
+          &quot;exploracao_cadastrada_terramatrix&quot;: &quot;AGRICOLA&quot;,
+          &quot;area_fazenda_calculada&quot;: &quot;406.2481'&quot;,
+          &quot;dataConsulta&quot;: &quot;2021-04-16 17:00:00&quot;,
+          &quot;nmCriteria&quot;: &quot;Embargos IBAMA - Lista&quot;,
+          &quot;vlResult&quot;: &quot;Apto&quot;,
+          &quot;soma_area_embargos_ha&quot;: 0.0,
+          &quot;soma_area_prodes_ha&quot;: 0.0,
+          &quot;error_territories&quot;: null,
+          &quot;error_analysis&quot;: null,
+          &quot;houve_mudanca&quot;: false
+        }
+    ]
+}
+</code></pre>
+<p><br/></p>
+<h4 id="detalhes_7">Detalhes</h4>
 <p>Análoga a rota <code>/api/v1/full_data_stage/update</code>, contudo os códigos de territórios a serem atualizados são todos da base <strong><em>cd territory</em></strong>, consumida pela rota <code>api/v1/cd_territory</code>.</p>
               
             </div>
